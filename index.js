@@ -11,6 +11,10 @@ var JSONFormatter = require("json-fmt"),
     PluginError = require("plugin-error"),
     through = require("through2");
 
+var getBuffer = Buffer.from || function(string, encoding) {
+    return new Buffer(string, encoding);
+};
+
 function jsonFmt(options) {
     return through.obj(function(file, encoding, done) {
         if (file.isNull()) {
@@ -23,13 +27,13 @@ function jsonFmt(options) {
 
             if (file.isBuffer()) {
                 // Buffer mode
-                file.contents = new Buffer(fmt.end(file.contents).flush(), encoding);
+                file.contents = getBuffer(fmt.end(file.contents).flush(), encoding);
                 done(null, file);
             } else if (file.isStream()) {
                 // Stream mode
                 var stream = through(function(chunk, encoding, callback) {
                     try {
-                        callback(null, new Buffer(fmt.append(chunk).flush()));
+                        callback(null, getBuffer(fmt.append(chunk).flush()));
                     } catch (ee) { callback(ee); }
                 }, function(callback) {
                     try {

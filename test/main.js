@@ -4,7 +4,11 @@ var File = require("vinyl"),
     jsonFmt = require("../"),
     fs = require("fs");
 
-var buffer = new Buffer(" [ 1, {\n\t\"foo\" : null \n\}  , true]  "),
+var getBuffer = Buffer.from || function(string, encoding) {
+    return new Buffer(string, encoding);
+}
+
+var buffer = getBuffer(" [ 1, {\n\t\"foo\" : null \n\}  , true]  "),
     random = fs.readFileSync(__dirname + "/samples/random.json"),
     pretty = fs.readFileSync(__dirname + "/samples/random.pp.json"),
     mini = fs.readFileSync(__dirname + "/samples/random.min.json");
@@ -85,7 +89,7 @@ describe("gulp-json-fmt", function() {
                     expect(err.name).to.be("JSONError");
                     done();
                 })
-                .write(new File({ contents: new Buffer("[ 'wrong string' ]") }));
+                .write(new File({ contents: getBuffer("[ 'wrong string' ]") }));
         });
     });
 

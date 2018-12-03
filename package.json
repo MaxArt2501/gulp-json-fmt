@@ -1,6 +1,6 @@
 {
   "name": "gulp-json-fmt",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Gulp plugin for JSON formatting with json-fmt",
   "main": "index.js",
   "directories": {

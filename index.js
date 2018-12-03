@@ -1,5 +1,14 @@
+/*!
+ * gulp-json-fmt
+ * https://github.com/MaxArt2501/gulp-json-fmt
+ *
+ * Copyright (c) 2015-2018 Massimo Artizzu
+ * Licensed under the MIT license.
+ */
+"use strict";
+
 var JSONFormatter = require("json-fmt"),
-    PluginError = require("gulp-util").PluginError,
+    PluginError = require("plugin-error"),
     through = require("through2");
 
 function jsonFmt(options) {
